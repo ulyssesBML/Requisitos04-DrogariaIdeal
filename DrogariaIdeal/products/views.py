@@ -22,3 +22,10 @@ def list_products(request):
         'all_products': Product.objects.all(),
     }
     return render(request, 'list_products.html', context)
+
+def delete_products(request, product_id):
+    if request.method == "POST":
+        Product.objects.get(id=product_id).delete()
+        return render(request, 'list_products.html',{'all_products': Product.objects.all()})
+    else:
+        return render(request, 'delete_products.html')

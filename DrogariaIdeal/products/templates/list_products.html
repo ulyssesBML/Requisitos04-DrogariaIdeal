@@ -12,17 +12,19 @@
     <th>Preço</th>
     <th>Codigo de Barra</th>
     <th>Quantidade</th>
+    <th>Deletar</th>
   </tr>
   {% for product in all_products %}
   <tr>
-    <td> <img height="100" width="100" src="{{ product.picture.url }}"></img> </td>
+    <!--<td> <img height="100" width="100" "></img> </td>-->
     <td>{{ product.product_name}}</td>
     <td>{{ product.factory_name}}</td>
     <td>{{product.price  }}</td>
     <td>{{product.bar_code  }}</td>
     <td>{{product.amount}}</td>
+    <td><a class="glyphicon glyphicon-trash" href="{% url 'products:delete_products' product.id %}"></a></td>
   </tr>
-  
+
   {% endfor %}
 </table>
 </div>
