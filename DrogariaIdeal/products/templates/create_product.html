@@ -1,23 +1,49 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>teste</h1>
 
-<br><br>
-
-<form class="configdiv" action="" method="post" enctype="multipart/form-data">
-
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+  <h1>Cadastra Produto</h1>
   {% csrf_token %}
-  {{ form.subject.errors }}
+
   <table>
-    {{ form.as_table }}
+    <tr>
+      
+    <tr>
+
+  {% for field in form %}
+    <tr>
+
+      <td>
+	{{field.label}}
+      </td>
+      <td>
+	  {{field}}
+      </td>
+
+      <td>
+	{% if field.errors %}
+	<div class="alert alert-danger">
+	  {{ field.errors }}
+	</div>
+	{% endif %}
+      </td>
+    <tr>
+      
+  {% endfor %}
   </table>
 
-  <br><br>
   
-  <button type="submit" type="button" class="btn btn-success" onclick="return confirm('Voce tem certeza ?')">Cadastrar</button>
+	<div class="form-group">
+	  <div class="col-sm-offset-2 col-sm-10">
+	    <button type="submit" type="button" class="btn btn-success" onclick="return confirm('Voce tem certeza ?')">Cadastrar</button>
+	    <a class="btn btn-warning" href="{% url 'products:list_products' %}">Cancelar</a>
+	  </div>
+	</div>
+
+
+
+  
 
 </form>
-
-
 {% endblock %}
