@@ -1,4 +1,4 @@
-.vagranti/*
+.vagrant/
 *.log
 *.pot
 *.pyc
