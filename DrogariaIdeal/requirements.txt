@@ -2,3 +2,4 @@ Django==1.9.8
 django-bootstrap3
 unipath
 Pillow
+django-crispy-forms

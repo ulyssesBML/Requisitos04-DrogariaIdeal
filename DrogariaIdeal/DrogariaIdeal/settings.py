@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Application definition
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'bootstrap3',
+    'crispy_forms',
     
     'products',
 ]

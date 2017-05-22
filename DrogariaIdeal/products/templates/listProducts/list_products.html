@@ -1,4 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'css/logincss.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
 <div class = "container" style="padding:10px;display:table;">
@@ -13,6 +18,7 @@
     <th>Codigo de Barra</th>
     <th>Quantidade</th>
     <th>Deletar</th>
+    <th>Editar</th>
   </tr>
   {% for product in all_products %}
   <tr>
@@ -23,6 +29,7 @@
     <td>{{product.bar_code  }}</td>
     <td>{{product.amount}}</td>
     <td><a class="glyphicon glyphicon-trash" onclick="return confirm('Voce tem certeza que deseja deletar ?   (Essa operação é irreversível)')" href="{% url 'products:delete_products' product.id %}"></a></td>
+    <td><a class="glyphicon glyphicon-pencil" href="{% url 'products:edit_product' product.id %}"></a></td>
   </tr>
 
   {% endfor %}
