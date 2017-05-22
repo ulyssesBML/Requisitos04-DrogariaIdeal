@@ -24,4 +24,7 @@ urlpatterns = [
     url(r'^login/$', views.show_login, name="login"),
     url(r'^logout/$', views.logout_view, name="logout"),
     url(r'^register/', views.register, name="register"),
+    url(r'^self_edit/', views.self_edit_user, name="self_edit_user"),
+    url(r'^list_user_edit/', views.list_user_edit, name="list_user_edit"),
+    url(r'^edit_user/(?P<user_id>[0-9]+)/',views.edit_user,name="edit_user"),
 ]

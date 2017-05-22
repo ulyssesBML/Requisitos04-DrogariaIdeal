@@ -184,3 +184,103 @@ def check_current_password(user, currentPassword):
         return ' -- Campo de Senha atual diferente da Senha Atual!'
     else:
         return ''
+
+
+@login_required
+def self_edit_user(request):
+
+    user = User.objects.get(pk=request.user.id)
+
+    if request.method == "GET":
+        return render(request, 'userEdit/selfEdit.html',)
+
+    else:
+        form = request.POST
+        first_name = form.get('first_name')
+        last_name = form.get('last_name')
+        # email = form.get('email')
+        email = request.user.username
+
+        resultCheck = fullValidationRegister(form)
+        resultCheck += fullValidation(form)
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = email
+        user.email = email
+        user.save()
+
+        # login(request,user)
+        update_session_auth_hash(request, user)
+
+        return render(request, 'userLogin/dashboard.html')
+
+
+@login_required
+def list_user_edit(request):
+
+    return __list__(request, 'userEdit/list_user_edit.html')
+
+
+def __list__(request, template):
+
+    users = User.objects.all()
+
+    return render(request, template, {'users': users})
+
+def __prepare_error_render__(request, fail_message, user):
+
+    return render(request, 'userEdit/editUsers.html',
+                  {'falha': fail_message, 'user': user})
+
+
+def __prepare_error_render_self__(request, fail_message, user):
+
+    return render(request, 'users/change_password.html',
+                  {'falha': fail_message, 'user': user})
+
+
+
+def check_permissions(user):
+    context = {
+        'user': user,
+    }
+
+    return context
+
+@login_required
+def edit_user(request, user_id):
+
+    user = User.objects.get(id=user_id)
+
+
+    if request.method == "GET":
+        context = check_permissions(user)
+        return render(request, 'userEdit/editUsers.html', context)
+
+    else:
+        form = request.POST
+        first_name = form.get('first_name')
+        last_name = form.get('last_name')
+        email = form.get('email')
+        user_type = form.get('user_type')
+        resultCheck = fullValidation(form)
+
+        if len(resultCheck) != 0:
+            return __prepare_error_render__(request, resultCheck, user)
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = email
+        user.email = email
+
+        if user_type == 'common':
+            user.is_superuser = False
+        else:
+            user.is_superuser = True
+
+        context = check_permissions(user)
+        user.save()
+        context['info'] = 'Usuario modificado com sucesso'
+
+        return render(request, 'userEdit/editUsers.html', context)
