@@ -22,6 +22,74 @@ import os
 def dashboard(request):
     return render(request, 'userLogin/dashboard.html')
 
+def register_client(request):
+
+    if request.method == "GET":
+        return render(request, 'userRegister/registerClient.html')
+    else:
+        form = request.POST
+        first_name = form.get('first_name')
+        last_name = form.get('last_name')
+        password = form.get('password')
+        confirmPassword = form.get('confirmPassword')
+        email = form.get('email')
+        user_type = form.get('user_type')
+
+        resultCheck = fullValidationRegister(form)
+        resultCheck += fullValidation(form)
+
+        if len(resultCheck) != 0:
+            return render(
+                request,
+                'userRegister/registerClient.html',
+                {'falha': resultCheck})
+
+        try:
+            user = User.objects.create_user(first_name=first_name,
+                                            last_name=last_name,
+                                            password=password,
+                                            username=email)
+
+        except IntegrityError as e:
+            return render(request, 'userRegister/registerClient.html',
+                          {'falha': 'Invalid email, email already exist'})
+        except:
+            return render(request, 'userRegister/registerClient.html',
+                          {'falha': 'unexpected error'})
+
+        user.save()
+        messages.success(request, 'Usuario registrado com sucesso')
+
+    return render(request, 'userLogin/dashboard.html')
+
+def self_edit_client(request):
+
+    user = User.objects.get(pk=request.user.id)
+
+    if request.method == "GET":
+        return render(request, 'userEdit/selfEdit.html',)
+
+    else:
+        form = request.POST
+        first_name = form.get('first_name')
+        last_name = form.get('last_name')
+        # email = form.get('email')
+        email = request.user.username
+
+        resultCheck = fullValidationRegister(form)
+        resultCheck += fullValidation(form)
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = email
+        user.email = email
+        user.save()
+
+        # login(request,user)
+        update_session_auth_hash(request, user)
+
+        return render(request, 'userLogin/dashboard.html')
+
 
 def show_login(request):
     if request.method == "GET":

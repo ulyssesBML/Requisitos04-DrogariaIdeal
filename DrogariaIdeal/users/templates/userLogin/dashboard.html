@@ -42,8 +42,13 @@
 <header class="jumbotron hero-spacer" style="padding:150px;">
     <h2>Bem Vindo {{ request.user.username }}<p></p></h2>
     <p>Fez alguma alteração em suas informações pessoais? Edite para manter o cadastro atualizado.</p>
-    <p><a href="{% url 'users:self_edit_user' %}" class="btn btn-primary btn-large">Editar Informações Pessoais</a>
-    </p>
+    {% if request.user.user_type == 'common'%}
+      <p><a href="{% url 'users:self_edit_client' %}" class="btn btn-primary btn-large">Editar Informações Pessoais</a>
+      </p>
+    {% else %}
+      <p><a href="{% url 'users:self_edit_user' %}" class="btn btn-primary btn-large">Editar Informações Pessoais</a>
+      </p>
+    {% endif%}
 </header>
 
 
