@@ -62,6 +62,7 @@ def register_client(request):
 
     return render(request, 'userLogin/dashboard.html')
 
+@login_required
 def self_edit_client(request):
 
     user = User.objects.get(pk=request.user.id)
