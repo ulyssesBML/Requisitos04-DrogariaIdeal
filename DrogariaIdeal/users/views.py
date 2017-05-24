@@ -16,6 +16,8 @@ from django.http import HttpResponse
 from django.contrib.auth import update_session_auth_hash
 
 import os
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
 @login_required
@@ -34,6 +36,7 @@ def register_client(request):
         confirmPassword = form.get('confirmPassword')
         email = form.get('email')
         user_type = form.get('user_type')
+        endereco = form.get('endereco')
 
         resultCheck = fullValidationRegister(form)
         resultCheck += fullValidation(form)
@@ -48,7 +51,8 @@ def register_client(request):
             user = User.objects.create_user(first_name=first_name,
                                             last_name=last_name,
                                             password=password,
-                                            username=email)
+                                            username=email,
+                                            endereco=endereco)
 
         except IntegrityError as e:
             return render(request, 'userRegister/registerClient.html',
@@ -60,7 +64,7 @@ def register_client(request):
         user.save()
         messages.success(request, 'Usuario registrado com sucesso')
 
-    return render(request, 'userLogin/dashboard.html')
+    return render(request, 'index')
 
 @login_required
 def self_edit_client(request):
