@@ -182,13 +182,7 @@ def register(request):
                 {'falha': resultCheck})
 
         try:
-            if user_type == 'common':
-                user = User.objects.create_user(first_name=first_name,
-                                                last_name=last_name,
-                                                password=password,
-                                                username=email)
-            else:
-                user = User.objects.create_superuser(first_name=first_name,
+            user = User.objects.create_superuser(first_name=first_name,
                                                      last_name=last_name,
                                                      password=password,
                                                      username=first_name,
