@@ -59,6 +59,23 @@ def make_login(request):
 
     return context
 
+@login_required
+def delete_user(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    if request.method == "GET":
+        return render(request, 'userDelete/delete_user.html', {'user': user})
+    else:
+        user.delete()
+        return render(request, 'userLogin/dashboard.html',
+
+    {'info': 'usuario deletado com sucesso'})
+
+@login_required
+def list_user_delete(request):
+
+    return __list__(request, 'userDelete/list_user_delete.html')
+
 
 @login_required
 def logout_view(request, *args, **kwargs):
@@ -112,7 +129,6 @@ def register(request):
                           {'falha': 'unexpected error'})
 
         user.save()
-        messages.success(request, 'Usuario registrado com sucesso')
 
     return render(request, 'userLogin/dashboard.html')
 
