@@ -29,4 +29,8 @@ urlpatterns = [
     url(r'^edit_user/(?P<user_id>[0-9]+)/',views.edit_user,name="edit_user"),
     url(r'^list_user_delete/',views.list_user_delete,name="list_user_delete"),
     url(r'^delete_user/(?P<user_id>[0-9]+)/',views.delete_user,name="delete_user"),
+    url(r'^register_client/', views.register_client, name="register_client"),
+    url(r'^self_edit/', views.self_edit_client, name="self_edit_client"),
+
+
 ]

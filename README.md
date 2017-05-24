@@ -2,11 +2,13 @@
 
 ### Dependência
 > Vagrant
+
 > VirtuaBox
 
 
 ### Rodar
 >vagrant up
+
 >vagrant ssh
 
 

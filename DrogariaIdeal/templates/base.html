@@ -54,8 +54,13 @@
                     </a>
                     {% else %}
                     <a href="{% url 'users:login'%}">
-                        <button type="button" class="btn btn-default navbar-btn ">
+                        <button type="button" class="btn btn-success navbar-btn ">
                         <span class= "glyphicon glyphicon-log-in" aria-hidden="true"> </span> Entrar
+                      </button>
+                    </a>
+                    <a href="{% url 'users:register_client'%}">
+                        <button type="button" class="btn btn-default navbar-btn ">
+                        <span class= "glyphicon glyphicon-user" aria-hidden="true"> </span> Registrar
                       </button>
                     </a>
                     {% endif %}
