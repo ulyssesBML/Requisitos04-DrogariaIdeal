@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+ <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Cadastra Categoria</h1>
+    <br>
+  </div>
+
+
+  <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{form|crispy}}
+
+
+    <button type="submit" type="button" class="btn btn-success" onclick="return confirm('Voce tem certeza ?')">Cadastrar</button>
+    <a class="btn btn-warning" href="{% url 'products:list_products' %}">Cancelar</a>
+  </form>
+
+  <table class="table table-hover" style="margin:5px;">
+    <tr>
+      <th>Nome</th>
+      <th>Delete</th>
+    </tr>
+    {% for category in all_categories %}
+    <tr>
+      <td>{{category.category_name}}</td>
+      <td><a class="glyphicon glyphicon-trash" onclick="return confirm('Voce tem certeza que deseja deletar ?   (Essa operação é irreversível)')" href="{% url 'products:delete_categories' category.id %}"></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

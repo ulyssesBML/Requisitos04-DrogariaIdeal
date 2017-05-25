@@ -34,6 +34,8 @@
 
   {% endfor %}
 </table>
-
+<a class="btn btn-primary" href="{% url 'products:create_product' %}">Adicionar Produto</a>
+<br></br>
+<a class = "glyphicon glyphicon-plus" href="{% url 'products:create_category' %}"> Criar Categoria </a>
 </div>
 {% endblock %}

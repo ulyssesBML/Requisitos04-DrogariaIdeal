@@ -4,6 +4,11 @@ from django.db import models
 
 # Create your models here.
 
+class Category(models.Model):
+    category_name = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.category_name
 
 class Product(models.Model):
     product_name = models.CharField(max_length=30)
@@ -13,6 +18,7 @@ class Product(models.Model):
     description = models.TextField(max_length=500,blank=True)
     amount = models.IntegerField()
     picture = models.FileField(upload_to="product_", blank=False, null=True)
+    categories = models.ManyToManyField(Category, blank=True)
 
     def __str__(self):
         return self.product_name

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from .forms import Create_Product_Form
-from .models import Product
+from .forms import Create_Product_Form, Create_Category_Form
+from .models import Product, Category
 # Create your views here.
 
 
@@ -42,3 +42,19 @@ def list_products(request):
 def delete_products(request, product_id):
         Product.objects.get(id=product_id).delete()
         return HttpResponseRedirect(reverse('products:list_products'))
+
+def create_category(request):
+
+    if request.method == "POST":
+        form = Create_Category_Form(request.POST)
+        if form.is_valid():
+            form.save()
+        return render(request, 'createCategory/create_category.html', {'form': form, 'all_categories': Category.objects.all()})
+
+    else:
+        form = Create_Category_Form()
+        return render(request, 'createCategory/create_category.html', {'form': form, 'all_categories': Category.objects.all()})
+
+def delete_categories(request, category_id):
+        Category.objects.get(id=category_id).delete()
+        return HttpResponseRedirect(reverse('products:create_category'))
