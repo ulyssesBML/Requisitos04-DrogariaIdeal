@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="margin" style="margin-top:80px;">
+  <h1 class="text-center">Lista de Usuário Registrados</h>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" style="">
+      <div class="margin">
+
+        <table class ="table table-bordered">
+          <tr>
+              <th>Nome</th>
+              <th>Sobrenome</th>
+              <th>Email</th>
+              <th>Editar</th>
+          </tr>
+          {% for user in users %}
+            {% if user.id != request.user.id %}
+              <tr>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.username}}</td>
+                <td><a  class="glyphicon glyphicon-pencil" href="{% url 'users:edit_user' user.id %}"></a></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+          </tab
+        </div>
+      </div>
+    </div>
+
+
+    {% endblock %}

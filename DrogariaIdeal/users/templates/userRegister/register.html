@@ -1,0 +1,59 @@
+{% extends "base.html"%}
+
+{% block title %}
+<title>Novo Funcionário</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron">
+  <div class="container">
+    <div class="wrapper">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h2>Registrar Novo Funcionário</h2>
+          <form class="configdiv" action="register" method="post">
+            <p2>{{falha}}</p2>
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="text" name= "first_name" placeholder="Nome" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name= "last_name" placeholder="Sobrenome" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name= "email" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" name ="password" placeholder="Senha" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" name ="confirmPassword" placeholder="Confirmar Senha" class="form-control">
+            </div>
+
+
+
+              <button type="submit" class="btn btn-success btn-lg btn-block" onclick="return confirm('Voce tem certeza ?')" >Registrar</button>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block login %}
+<form class="navbar-form navbar-right" action="login" method="post">
+  <p2 color="red" >{{falha}}</p2>
+  {% csrf_token %}
+  <div class="form-group">
+    <input type="text" name= "Email" placeholder="Email" class="form-control">
+  </div>
+  <div class="form-group">
+    <input type="password" name ="Password" placeholder="Password" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">Entrar</button>
+</form>
+{% endblock %}
