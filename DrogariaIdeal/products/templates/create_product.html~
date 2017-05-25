@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<h1>teste</h1>
+
+<br><br>
+
+<form class="configdiv" action="" method="post" enctype="multipart/form-data">
+
+  {% csrf_token %}
+  {{ form.subject.errors }}
+  <table>
+    {{ form.as_table }}
+  </table>
+
+  <br><br>
+  
+  <button type="submit" type="button" class="btn btn-success" onclick="return confirm('Voce tem certeza ?')">Cadastrar</button>
+
+</form>
+
+
+{% endblock %}
