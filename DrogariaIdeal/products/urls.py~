@@ -1,0 +1,9 @@
+from django.conf.urls import include, url
+from django.contrib import admin
+
+from . import views
+
+urlpatterns = [
+    url(r'^create_product/', views.create_product, name="create_product"),
+    url(r'^list_products/', views.list_products, name="list_products"),
+]

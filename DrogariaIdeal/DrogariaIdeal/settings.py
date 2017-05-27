@@ -30,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Application definition
 
@@ -40,11 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'users',
     'bootstrap3',
+    'crispy_forms',
+
+    'products',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,3 +133,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

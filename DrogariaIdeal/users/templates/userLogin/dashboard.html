@@ -1,0 +1,58 @@
+{% extends "base.html"%}{% load staticfiles %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-default sidebar" role="navigation" style="padding-top:50px;">
+    <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+
+        <li class="dropdown">
+          {% if request.user.is_staff %}
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Funcionário <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+          <ul class="dropdown-menu forAnimate" role="menu">
+            <li><a href="{% url 'users:register' %}">Registrar</a></li>
+            <li><a href="{% url 'users:list_user_edit' %}">Modificar</a></li>
+            <li><a href="{% url 'users:list_user_delete' %}">Excluir</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Informes</a></li>
+          </ul>
+          {% endif %}
+        </li>
+        <li ><a href="#">Produtos<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>
+        <li ><a href="#">Tags<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<header class="jumbotron hero-spacer" style="padding:150px;">
+    <h2>Bem Vindo {{ request.user.username }}<p></p></h2>
+    <p>Fez alguma alteração em suas informações pessoais? Edite para manter o cadastro atualizado.</p>
+    {% if request.user.is_staff %}
+      <p><a href="{% url 'users:self_edit_user' %}" class="btn btn-primary btn-large">Editar Informações Pessoais</a>
+      </p>
+    {% else %}
+      <p><a href="{% url 'users:self_edit_client' %}" class="btn btn-primary btn-large">Editar Informações Pessoais</a>
+      </p>
+    {% endif%}
+</header>
+
+
+{% endblock %}
