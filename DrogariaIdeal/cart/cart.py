@@ -1,33 +1,31 @@
 from products.models import Product
 
-class Cart():
+__productIds = []
 
-    _productIds = []
+def getProductAtIndex(self, index):
 
-    def getProductAtIndex(self, index):
+    product = None
+    if index < __productIds.count:
+        id = __productIds[index]
+        product = Product.objects.get(id = id)
 
-        product = None
-        if index < _productIds.count:
-            id = self._productIds[index]
-            product = Product.objects.get(id = id)
+    return product
 
-        return product
+def getAllProducts(self):
+    products = []
+    for id in __productIds:
+        products.append(Product.objects.get(id = id))
 
-    def getAllProducts(self):
-        products = []
-        for id in self._productIds:
-            products.append(Product.objects.get(id = id))
+    return products
 
-        return products
+def addProduct(self, id):
+    if id not in __productIds:
+        __productIds.append(id)
 
-    def addProduct(self, id):
-        if id not in self._productIds:
-            self._productIds.append(id)
+def removeProduct(self, id):
+    if id in __productIds:
+        index = __productIds.index(id)
+        self.__productIds.pop(index)
 
-    def removeProduct(self, id):
-        if id in self._productIds:
-            index = self._productIds.index(id)
-            self._productIds.pop(index)
-
-    def clear(self):
-        self._productIds.clear()
+def clear(self):
+    __productIds.clear()
