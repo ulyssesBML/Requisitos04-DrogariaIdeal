@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from .forms import Create_Product_Form, Create_Category_Form
 from .models import Product, Category
+from cart import cart
 # Create your views here.
 
 
@@ -58,3 +59,15 @@ def create_category(request):
 def delete_categories(request, category_id):
         Category.objects.get(id=category_id).delete()
         return HttpResponseRedirect(reverse('products:create_category'))
+
+
+def sell_products(request):
+    print(cart.getAllProducts())
+    context = {
+        'all_products': Product.objects.all(),
+    } 
+    return render(request,"sellProducts/sell_products.html", context)
+
+def add_to_cart(request, product_id):
+    cart.addProduct(product_id)
+    return HttpResponseRedirect(reverse('products:sell_products'))

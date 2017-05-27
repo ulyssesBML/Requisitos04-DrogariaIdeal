@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'css/logincss.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class = "container" style="padding:10px;display:table;">
+<a class="btn btn-primary" href="{% url 'products:create_product' %}">Adicionar Produto</a>
+<table class="table table-hover" style="margin:5px;">
+
+  <tr>
+    <th>Foto</th>
+    <th>Nome</th>
+    <th>Fabricante</th>
+    <th>Preço</th>
+    <th>Codigo de Barra</th>
+    <th>Quantidade</th>
+    <th>Deletar</th>
+  </tr>
+  {% for product in all_products %}
+  <tr>
+    <td> <img height="100" width="100" src= "{{ product.picture.url }}"></img> </td>
+    <td>{{ product.product_name}}</td>
+    <td>{{ product.factory_name}}</td>
+    <td>{{product.price  }}</td>
+    <td>{{product.bar_code  }}</td>
+    <td>{{product.amount}}</td>
+    <td><a class="glyphicon glyphicon-shopping-cart" href="{% url 'products:add_to_cart' product.id %}"></a></td>
+  </tr>
+
+  {% endfor %}
+</table>
+<a class="btn btn-primary" href="{% url 'products:create_product' %}">Adicionar Produto</a>
+<br></br>
+<a class = "glyphicon glyphicon-plus" href="{% url 'products:create_category' %}"> Criar Categoria </a>
+</div>
+{% endblock %}
