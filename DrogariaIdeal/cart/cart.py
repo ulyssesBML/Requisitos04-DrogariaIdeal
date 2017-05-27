@@ -2,7 +2,7 @@ from products.models import Product
 
 __productIds = []
 
-def getProductAtIndex(self, index):
+def get_product_at_index(self, index):
 
     product = None
     if index < __productIds.count:
@@ -11,18 +11,18 @@ def getProductAtIndex(self, index):
 
     return product
 
-def getAllProducts(self):
+def get_all_products(self):
     products = []
     for id in __productIds:
         products.append(Product.objects.get(id = id))
 
     return products
 
-def addProduct(self, id):
+def add_product(self, id):
     if id not in __productIds:
         __productIds.append(id)
 
-def removeProduct(self, id):
+def remove_product(self, id):
     if id in __productIds:
         index = __productIds.index(id)
         self.__productIds.pop(index)
