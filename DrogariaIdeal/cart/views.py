@@ -6,7 +6,6 @@ from . import cart
 def show_cart(request):
     user_id = request.user.id
     cart_products = cart.get_all_products(user_id)
-    print (cart_products)
 
     return render(request, "show_cart/show_cart.html", {"cart_products":cart_products})
 

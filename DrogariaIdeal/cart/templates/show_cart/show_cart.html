@@ -12,6 +12,7 @@
     <th>Fabricante</th>
     <th>Preço</th>
     <th>Codigo de Barras</th>
+    <th>Quantidade</th>
     <th>Remover do Carrinho</th>
   </tr>
   {% for product in cart_products %}
@@ -21,10 +22,11 @@
     <td>{{ product.factory_name}}</td>
     <td>{{product.price  }}</td>
     <td>{{product.bar_code  }}</td>
+    <td> <input type="number" name ="amount" min = "1" placeholder="1" style="width:100px" class="form-control"> </td>
     <td><a class="glyphicon glyphicon-trash" onclick="return confirm('Voce tem certeza que deseja retirar este produto do carrinho ?" href="{% url 'cart:remove_from_cart' product.id %}"></a></td>
   </tr>
-
   {% endfor %}
-</table>
 
+</table>
+<a class="btn btn-primary" href="">Finalizar Compra</a>
 {% endblock %}

@@ -39,7 +39,7 @@ def get_all_products(user_id):
     return products
 
 
-def add_product(user_id, id):
+def add_product(user_id, id, amount):
     cart = get_cart_for_user_id(user_id)
 
     contains = False
@@ -49,16 +49,25 @@ def add_product(user_id, id):
             break
 
     if not contains:
-        cart.append({PRODUCT_ID_KEY: id, PRODUCT_COUNT_KEY: 1})
+        cart.append({PRODUCT_ID_KEY: id, PRODUCT_COUNT_KEY: amount})
 
 
 def remove_product(user_id, id):
     cart = get_cart_for_user_id(user_id)
-    
+
     for i, cart_item in enumerate(cart):
         if cart_item[PRODUCT_ID_KEY] == id:
             cart.pop(i)
             break
+
+def get_amount(user_id, product_id):
+    cart = get_cart_for_user_id(user_id)
+
+    for i, cart_item in enumerate(cart):
+        if cart_item[PRODUCT_ID_KEY] == product_id:
+            amount = cart_item[PRODUCT_COUNT_KEY]
+
+    return amount
 
 
 def clear(user_id):
