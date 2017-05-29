@@ -15,9 +15,8 @@
     <th>Nome</th>
     <th>Fabricante</th>
     <th>Preço</th>
-    <th>Codigo de Barra</th>
     <th>Quantidade</th>
-    <th>Deletar</th>
+    <th>Adicionar ao Carrinho</th>
   </tr>
   {% for product in all_products %}
   <tr>
@@ -25,8 +24,7 @@
     <td>{{ product.product_name}}</td>
     <td>{{ product.factory_name}}</td>
     <td>{{product.price  }}</td>
-    <td>{{product.bar_code  }}</td>
-    <td>{{product.amount}}</td>
+    <td> <input type="number" name ="amount" min = "1" placeholder="1" style="width:100px" class="form-control"> </td>
     <td><a class="glyphicon glyphicon-shopping-cart" href="{% url 'products:add_to_cart' product.id %}"></a></td>
   </tr>
 

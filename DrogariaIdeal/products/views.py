@@ -62,6 +62,8 @@ def delete_categories(request, category_id):
 
 
 def sell_products(request):
+    cart_products = cart.get_all_products(request.user.id)
+    print (cart_products)
     # print('id: ', request.user.id)
     context = {
         'all_products': Product.objects.all(),
@@ -70,5 +72,5 @@ def sell_products(request):
 
 def add_to_cart(request, product_id):
     # 1 is placeholder, must be request.user.id
-    cart.add_product(1, product_id)
+    cart.add_product(request.user.id, product_id)
     return HttpResponseRedirect(reverse('products:sell_products'))

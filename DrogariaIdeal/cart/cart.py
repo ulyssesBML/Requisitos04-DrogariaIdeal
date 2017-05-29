@@ -53,6 +53,8 @@ def add_product(user_id, id):
 
 
 def remove_product(user_id, id):
+    cart = get_cart_for_user_id(user_id)
+    
     for i, cart_item in enumerate(cart):
         if cart_item[PRODUCT_ID_KEY] == id:
             cart.pop(i)
