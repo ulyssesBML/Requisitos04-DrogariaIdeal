@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'css/logincss.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class = "container" style="padding:10px;display:table;">
+<table class="table table-hover" style="margin:5px;">
+
+  <tr>
+    <th>Foto</th>
+    <th>Nome</th>
+    <th>Fabricante</th>
+    <th>Preço</th>
+    <th>Codigo de Barra</th>
+    <th>Quantidade</th>
+    <th>Deletar</th>
+    <th>Editar</th>
+  </tr>
+  {% for product in search_products %}
+  <tr>
+    <td> <img height="100" width="100" src= "{{ product.picture.url }}"></img> </td>
+    <td>{{ product.product_name}}</td>
+    <td>{{ product.factory_name}}</td>
+    <td>{{product.price  }}</td>
+    <td>{{product.bar_code  }}</td>
+    <td>{{product.amount}}</td>
+  </tr>
+
+  {% endfor %}
+{% endblock %}

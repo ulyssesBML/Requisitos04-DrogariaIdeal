@@ -3,8 +3,18 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from .forms import Create_Product_Form, Create_Category_Form
 from .models import Product, Category
+from products.models import Product
 # Create your views here.
 
+
+
+def search(request):
+    query = request.GET.get('q')
+    queryset_list = Product.objects.all()
+    context = {
+        'search_products': queryset_list.filter(product_name__icontains=query),
+    }
+    return render(request, 'listProducts/list_products_search.html', context)
 
 def create_product(request):
     if request.method == "POST":
