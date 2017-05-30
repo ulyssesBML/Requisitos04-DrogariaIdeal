@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+ {% csrf_token %}
+<div class = "container" style="padding:10px;display:table;">
+<a class="btn btn-primary" href="{% url 'products:create_product' %}">Carrinho</a>
+<table class="table table-hover" style="margin:5px;">
+
+  <tr>
+    <th>Codigo da Ordem</th>
+    <th>Valor Total</th>
+  </tr>
+  {% for order in all_orders %}
+  <tr>
+    <td>{{order.id }}</td>
+    <td>{{order.total_price }} R$</td>
+    <td><a class="glyphicon glyphicon-tags" href = "{% url 'cart:list_product_order' order.id %}"></a></td>
+    <td><a class="glyphicon glyphicon-send"></a></td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+{% endblock %}
