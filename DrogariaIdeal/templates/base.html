@@ -26,7 +26,9 @@
      <!--[if lt IE 9]>
          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-     <![endif]-->
+	 <![endif]-->
+     {% block head %}
+     {% endblock %}
 
  </head>
 
@@ -45,6 +47,12 @@
                  <a class="navbar-brand" href="/">Drogaria Ideal</a>
              </div>
              <div class="navbar-right" >
+	        <a href="{% url 'cart:show_cart'%}">
+                        <button type="button" class="btn btn-default navbar-btn ">
+                        <span class= "glyphicon glyphicon-shopping-cart" aria-hidden="true"> </span> Carrinho
+                      </button>
+                    </a>
+		    
                {% if user.is_authenticated %}
 
                     <a href="{% url 'users:logout'%}?next=/">
@@ -52,6 +60,7 @@
                         <span class= "glyphicon glyphicon-log-out" aria-hidden="true"> </span> Sair
                       </button>
                     </a>
+		    
                     {% else %}
                     <a href="{% url 'users:login'%}">
                         <button type="button" class="btn btn-success navbar-btn ">
@@ -63,6 +72,7 @@
                         <span class= "glyphicon glyphicon-user" aria-hidden="true"> </span> Registrar
                       </button>
                     </a>
+		    
                     {% endif %}
                 </div>
              <!-- Collect the nav links, forms, and other content for toggling -->
@@ -72,12 +82,13 @@
                          <a href="#">Sobre</a>
                      </li>
                      <li>
-                         <a href="#">Serviços</a>
+                         <a href="{% url 'products:sell_products'%}">Produtos</a>
                      </li>
                        {% if user.is_authenticated %}
                        <li>
                            <a href="{% url 'users:dashboard' %}"><b>{{ request.user.username }}<b></a>
                        </li>
+		      
                        {% endif %}
                  </ul>
              </div>

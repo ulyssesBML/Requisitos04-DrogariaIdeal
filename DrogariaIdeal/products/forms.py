@@ -15,7 +15,8 @@ class Create_Product_Form(ModelForm):
             'description': 'Descrição',
             'amount': 'Quantidade',
             'picture': 'Foto do Produto',
-            'categories': 'Categoria'
+            'categories': 'Categoria',
+            'featured':'Destaque',
 
         }
 

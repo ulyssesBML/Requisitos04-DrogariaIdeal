@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 from .forms import Create_Product_Form, Create_Category_Form
 from .models import Product, Category
 from cart import cart
@@ -62,10 +65,21 @@ def delete_categories(request, category_id):
 
 
 def sell_products(request):
-    cart_products = cart.get_all_products(request.user.id)
-    # print('id: ', request.user.id)
+    N_ELEMENTS = 15
+    all_products = Product.objects.all()
+    paginator = Paginator(all_products,N_ELEMENTS)
+    page = request.GET.get('page')
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products = paginator.page(paginator.num_pages)
+
     context = {
-        'all_products': Product.objects.all(),
+        'all_products': products,
     }
 
     return render(request,"sellProducts/sell_products.html", context)

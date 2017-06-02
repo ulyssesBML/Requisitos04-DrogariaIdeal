@@ -1,4 +1,11 @@
 from django.shortcuts import render
 
+
+from products.models import Product
+
+
 def index(request):
-    return render(request, "index.html")
+    context = {
+        'featured_products': Product.objects.filter(featured=True)
+    }
+    return render(request, "index.html", context)
