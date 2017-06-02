@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+ {% csrf_token %}
+<div class = "container" style="padding:10px;display:table;">
+<a class="btn btn-primary" href="{% url 'products:create_product' %}">Carrinho</a>
+<table class="table table-hover" style="margin:5px;">
+
+  <tr>
+    <th>Codigo do Pedido</th>
+    <th>Nome</th>
+    <th>Preço unitario<th>
+    <th>Quantidade<th>
+  </tr>
+  {% for product_order in order %}
+  <tr>
+    <td>{{product_order.product.id}}</td>
+    <td>{{product_order.product.product_name}}</td>
+    <td>{{product_order.product.price}} R$</td>
+    <td>{{ product_order.amount }}</td>
+  </tr>
+  {% endfor %}
+</table>
+  <h2>Preço Total: {{total_price}} R$</h2>
+  <br>
+  <h2>Dados do cliente</h2>
+ <p>email: {{client.first_name}}</p> 
+ <p>email: {{client.username}}</p> 
+ <p>endereço: {{client.endereco}}</p> 
+  {% endblock %}

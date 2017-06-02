@@ -17,6 +17,7 @@ class Product(models.Model):
     bar_code = models.CharField(max_length=30, blank=True)
     description = models.TextField(max_length=500,blank=True)
     amount = models.IntegerField()
+    featured = models.BooleanField()
     picture = models.FileField(upload_to="product_", blank=False, null=True)
     categories = models.ManyToManyField(Category, blank=True)
 

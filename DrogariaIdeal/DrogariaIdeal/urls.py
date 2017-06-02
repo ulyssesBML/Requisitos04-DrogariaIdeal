@@ -22,8 +22,9 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('users.urls', namespace="users")),
+    url(r'^accounts/', include('users.urls', namespace='users')),
     url(r'^products/' , include('products.urls' , namespace = 'products')),
+    url(r'^cart/', include('cart.urls', namespace = 'cart'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

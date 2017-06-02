@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<form class="form-horizontal" action="" method="post" >
+ {% csrf_token %}
+<div class = "container" style="padding:10px;display:table;">
+<a class="btn btn-primary" href="{% url 'products:create_product' %}">Carrinho</a>
+<table class="table table-hover" style="margin:5px;">
+
+  <tr>
+    <th>Foto</th>
+    <th>Nome</th>
+    <th>Fabricante</th>
+    <th>Preço</th>
+    <th>Codigo de Barras</th>
+    <th>Quantidade</th>
+    <th>Remover do Carrinho</th>
+  </tr>
+  {% for product in cart_products %}
+  <tr>
+    <td> <img height="100" width="100" src= "{{ product.picture.url }}"></img> </td>
+    <td>{{ product.product_name}}</td>
+    <td>{{ product.factory_name}}</td>
+    <td>{{product.price  }}</td>
+    <td>{{product.bar_code  }}</td>
+    <td> <input type="number" name ="amount{{forloop.counter}}" value="1" min = "1"  style="width:100px" class="form-control"> </td>
+    <td><a class="glyphicon glyphicon-trash" onclick="return confirm('Voce tem certeza que deseja retirar este produto do carrinho ?" href="{% url 'cart:remove_from_cart' product.id %}"></a></td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+    {{form|crispy}}
+<button class="btn btn-primary" type="submit" >Finalizar Compra</button>
+
+</form>
+{% endblock %}

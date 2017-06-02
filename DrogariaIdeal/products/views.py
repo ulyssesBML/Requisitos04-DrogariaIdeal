@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 from .forms import Create_Product_Form, Create_Category_Form
 from .models import Product, Category
 from products.models import Product
+from cart import cart
 # Create your views here.
 
 
@@ -68,3 +72,29 @@ def create_category(request):
 def delete_categories(request, category_id):
         Category.objects.get(id=category_id).delete()
         return HttpResponseRedirect(reverse('products:create_category'))
+
+
+def sell_products(request):
+    N_ELEMENTS = 15
+    all_products = Product.objects.all()
+    paginator = Paginator(all_products,N_ELEMENTS)
+    page = request.GET.get('page')
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products = paginator.page(paginator.num_pages)
+
+    context = {
+        'all_products': products,
+    }
+
+    return render(request,"sellProducts/sell_products.html", context)
+
+def add_to_cart(request, product_id):
+
+    cart.add_product(request.user.id, product_id, 1)
+    return HttpResponseRedirect(reverse('products:sell_products'))
