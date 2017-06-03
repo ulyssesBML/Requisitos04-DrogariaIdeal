@@ -64,8 +64,12 @@ def total_price(cart_products, amount):
 
 
 def list_orders(request):
+
     context = {}
-    context['all_orders'] = Order.objects.all()
+    if request.user.is_superuser:
+        context['all_orders'] = Order.objects.all()
+    else:
+        context['all_orders'] = Order.objects.filter(user = request.user.id)
 
     return render(request,"listOrders/list_orders.html", context)
 
