@@ -5,24 +5,29 @@
 
  {% csrf_token %}
 <div class = "container" style="padding:10px;display:table;">
-<a class="btn btn-primary" href="{% url 'products:create_product' %}">Carrinho</a>
-<table class="table table-hover" style="margin:5px;">
+    <a class="btn btn-primary" href="{% url 'products:create_product' %}">Carrinho</a>
+    <table class="table table-hover" style="margin:5px;">
 
-  <tr>
-    <th>Codigo do Pedido</th>
-    <th>Valor Total</th>
-    <th>Detalhe</th>
-    <th>Status</th>
-  </tr>
-  {% for order in all_orders %}
-  <tr>
-    <td>{{order.id }}</td>
-    <td>{{order.total_price }} R$</td>
-    <td><a class="glyphicon glyphicon-tags" href = "{% url 'cart:list_products_order' order.id %}"></a></td>
-    <td><a class="glyphicon glyphicon-send"></a></td>
-    <td><a class="glyphicon glyphicon-remove" onclick="return confirm('Voce tem certeza que deseja cancelar este pedido?')" href = "{% url 'cart:cancel_order' order.id %}" ></a></td>
-  </tr>
-  {% endfor %}
+    <tr>
+        <th>Codigo do Pedido</th>
+        <th>Valor Total</th>
+        <th>Detalhe</th>
+        {% if user.is_superuser %}
+        <th>Enviar</th>
+        {% endif %}
+    </tr>
+    {% for order in all_orders %}
+    <tr>
+        <td>{{order.id }}</td>
+        <td>{{order.total_price }} R$</td>
+        <td><a class="glyphicon glyphicon-tags" href = "{% url 'cart:list_products_order' order.id %}"></a></td>
+
+        {% if user.is_superuser %}
+        <td><a class="glyphicon glyphicon-send"></a></td>
+        {% endif %}
+        <td><a class="glyphicon glyphicon-remove" onclick="return confirm('Voce tem certeza que deseja cancelar este pedido?')" href = "{% url 'cart:cancel_order' order.id %}" ></a></td>
+    </tr>
+    {% endfor %}
 
 </table>
 

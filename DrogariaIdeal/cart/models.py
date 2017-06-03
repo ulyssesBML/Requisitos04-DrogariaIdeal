@@ -44,7 +44,7 @@ class Order(models.Model):
 
     STATE = (
         ('pending', 'Pendente'),
-        ('finished', 'Terminado'),
+        ('delivered', 'Entregue'),
         ('cancelled', 'Cancelado'),
     )
     state = models.CharField(

@@ -74,6 +74,19 @@ def list_orders(request):
     return render(request,"listOrders/list_orders.html", context)
 
 
+def list_order_history(request):
+
+    context = {}
+
+    context['user'] = request.user
+    if request.user.is_superuser:
+        context['all_orders'] = Order.objects.filter()
+    else:
+        context['all_orders'] = Order.objects.filter(user = request.user.id)
+
+    return render(request,"listOrders/list_order_history.html", context)
+
+
 def list_products_order(request,order_id):
     context = {}
     products = []
