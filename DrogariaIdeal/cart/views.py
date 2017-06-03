@@ -67,9 +67,9 @@ def list_orders(request):
 
     context = {}
     if request.user.is_superuser:
-        context['all_orders'] = Order.objects.all()
+        context['all_orders'] = Order.objects.filter(state = Order.STATE[0][0])
     else:
-        context['all_orders'] = Order.objects.filter(user = request.user.id)
+        context['all_orders'] = Order.objects.filter(user = request.user.id, state = Order.STATE[0][0])
 
     return render(request,"listOrders/list_orders.html", context)
 
@@ -86,7 +86,9 @@ def list_products_order(request,order_id):
 
 
 def cancel_order(request, order_id):
-    order = Order.objects.get(id = order_id).delete()
+    order = Order.objects.get(id = order_id)
+    order.state = Order.STATE[2][0]
+    order.save()
     return HttpResponseRedirect(reverse('cart:list_orders'))
 
 

@@ -13,7 +13,7 @@ class ProductOrder(models.Model):
     amount = models.IntegerField()
     def __str__(self):
         return self.product.product_name
-    
+
 
 
 class Order(models.Model):
@@ -42,6 +42,13 @@ class Order(models.Model):
     total_price = models.IntegerField(null=False)
     user = models.IntegerField()
 
-     
-   
- 
+    STATE = (
+        ('pending', 'Pendente'),
+        ('finished', 'Terminado'),
+        ('cancelled', 'Cancelado'),
+    )
+    state = models.CharField(
+        max_length=16,
+        choices=STATE,
+        default='pending',
+    )
