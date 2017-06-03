@@ -71,6 +71,4 @@ def get_amount(user_id, product_id):
 
 
 def clear(user_id):
-    cart = get_cart_for_user_id(user_id)
-
-    cart.clear()
+    __carts[user_id] = []
