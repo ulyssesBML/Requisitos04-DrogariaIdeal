@@ -9,3 +9,7 @@ def index(request):
         'featured_products': Product.objects.filter(featured=True)
     }
     return render(request, "index.html", context)
+
+
+def about(request):
+    return render(request,"about.html")

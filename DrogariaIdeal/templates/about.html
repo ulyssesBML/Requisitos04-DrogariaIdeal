@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block head %}
+<!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Simply Me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .bg-1 { 
+      background-color: #1abc9c; /* Green */
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #fff; /* White */
+      color: #555555;
+  }
+
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="container-fluid bg-1 text-center">
+  <br><br><br><br>
+  <img src="{% static 'logo.png' %}" class="img-circle" alt="Bird" width="350" height="350">
+  <h3>Drogaria Ideal</h3>
+</div>
+
+<div class="container-fluid bg-2 text-center">
+  <h3>Quem somos?</h3>
+  <p>A drogaria ideal </p>
+</div>
+
+<div class="container-fluid bg-3 text-center">
+  <h3>Onde me emcomtrar?</h3>
+  <p>QC 5 - Lt 25 Lj 3/4, QC 1 - Santa Maria, Brasília - DF</p>
+</div>
+
+
+
+
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSPV03Kx_vPLOrRJzYjy4H2iJXR_RGRI&callback=initMap"
+  type="text/javascript"></script>
+
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: -15.994547, lng: -47.995593};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+
+
+    {% endblock %}

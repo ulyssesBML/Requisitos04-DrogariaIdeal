@@ -21,6 +21,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^about$', views.about,name="about"),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('users.urls', namespace='users')),
     url(r'^products/' , include('products.urls' , namespace = 'products')),
