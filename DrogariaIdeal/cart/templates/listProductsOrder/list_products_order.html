@@ -14,7 +14,7 @@
     <th>Preço unitario<th>
     <th>Quantidade<th>
   </tr>
-  {% for product_order in order %}
+  {% for product_order in product_order %}
   <tr>
     <td>{{product_order.product.id}}</td>
     <td>{{product_order.product.product_name}}</td>
@@ -24,6 +24,12 @@
   {% endfor %}
 </table>
   <h2>Preço Total: {{total_price}} R$</h2>
+  <br>
+  <h2>Dados de Pagamento</h2>
+   <p>forma de pagamento: {{ order.payment}}</p>
+   <p>bandeira do cartão: {{ order.flag}}</p>
+   <p>Troco: {{ order.change}}</p>
+  
   <br>
   <h2>Dados do cliente</h2>
  <p>nome: {{client.first_name}}</p> 

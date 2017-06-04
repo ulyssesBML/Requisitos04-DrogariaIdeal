@@ -19,6 +19,8 @@ def show_cart(request):
         form = request.POST
         order_form = Create_Order_Form(request.POST)
         if order_form.is_valid:
+            print("-------------------------------------------------------------")
+            print(order_form.instance.payment)
             order_form.instance.user = CustomUser.objects.get(id=request.user.id).id
             order_form.instance.total_price = 0
             order_form.save()
@@ -31,6 +33,9 @@ def show_cart(request):
                order_form.instance.orders.add(product_O.id)
 
             order_form.instance.total_price = total_price(cart_products, amount)
+            
+            
+            
             order_form.save()
 
             cart.clear(user_id)
@@ -94,7 +99,8 @@ def list_products_order(request,order_id):
     main_order = Order.objects.get(id=order_id)
     context["client"] = CustomUser.objects.get(id= main_order.user)
     context["total_price"] = main_order.total_price
-    context['order'] = main_order.orders.all()
+    context['product_order'] = main_order.orders.all()
+    context['order'] = main_order
     return render(request,"listProductsOrder/list_products_order.html", context)
 
 

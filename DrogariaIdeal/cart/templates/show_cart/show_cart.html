@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}
+
 {% block body %}
 
 <form class="form-horizontal" action="" method="post" >
@@ -33,7 +38,51 @@
 </table>
 
     {{form|crispy}}
-<button class="btn btn-primary" type="submit" >Finalizar Compra</button>
+<button id="submit_btn" class="btn btn-primary" type="submit" >Finalizar Compra</button>
+
+
+<script>
+  $(document).ready(function(){
+
+  if($('#id_payment option:selected').val() == "Dinheiro"){
+      $("#id_flag").val(""); 
+      $("#id_flag").prop("disabled",true); 
+      $("#id_change").val(0);
+  }
+  
+  $("#id_flag").click(function(){
+       if($('#id_flag option:selected').val() == "" && $('#id_payment option:selected').val() != "Dinheiro"){
+          alert("Bandeira invalida!! selecione uma bandeira valida");
+          $("#id_flag").val("Visa"); 
+       }
+
+  });
+  
+  $("#id_payment").click(function(){
+          if ($('#id_payment option:selected').val() == "Dinheiro"){
+             $("#id_flag").val(""); 
+             $("#id_flag").prop("disabled",true); 
+             $("#id_change").prop("disabled",false); 
+          }
+          else{
+             $("#id_flag").val("Visa"); 
+             $("#id_flag").prop("disabled",false);
+             $("#id_change").prop("disabled",true);
+             $("#id_change").val(0);
+          }
+ 
+      })
+  }); 
+</script>
+
+{% if not cart_products %}
+<script>
+  $(document).ready(function(){
+      alert("Não há items no seu carrinho");
+      $("#submit_btn").prop("disabled",true); 
+  })
+</script>
+{% endif %}
 
 </form>
 {% endblock %}

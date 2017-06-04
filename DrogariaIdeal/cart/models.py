@@ -28,6 +28,7 @@ class Order(models.Model):
         default='Dinheiro',
     )
     FLAG = (
+        ('', ''),
         ('Visa', 'Visa'),
         ('MasterCard', 'MasterCard'),
         ('AmericanExpress', 'AmericanExpress'),
@@ -35,9 +36,10 @@ class Order(models.Model):
     flag = models.CharField(
         max_length=16,
         choices=FLAG,
-        default='Visa',
+        default='',
+        blank=True,
     )
-    change = models.DecimalField(max_digits=8, decimal_places=2)
+    change = models.DecimalField(max_digits=8, decimal_places=2,default=0,blank=True)
     orders = models.ManyToManyField(ProductOrder)
     total_price = models.IntegerField(null=False)
     user = models.IntegerField()
