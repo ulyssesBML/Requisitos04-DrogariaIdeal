@@ -3,12 +3,15 @@ import sys
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 from . import cart
 from .forms import Create_Order_Form
 from .models import Order, ProductOrder
 from users.models import CustomUser
 import pusher
 
+@login_required
 def show_cart(request):
     context = {}
     user_id = request.user.id
@@ -68,6 +71,7 @@ def show_cart(request):
         return render(request, "show_cart/show_cart.html", context)
 
 
+@login_required
 def remove_from_cart(request, product_id):
     user_id = request.user.id
     cart.remove_product(user_id, product_id)
@@ -75,6 +79,7 @@ def remove_from_cart(request, product_id):
     return HttpResponseRedirect(reverse('cart:show_cart'))
 
 
+@login_required
 def total_price(cart_products, amount):
     price = 0
     print(len(cart_products))
@@ -84,6 +89,7 @@ def total_price(cart_products, amount):
     return price
 
 
+@login_required
 def list_orders(request):
 
     context = {}
@@ -94,7 +100,7 @@ def list_orders(request):
 
     return render(request,"listOrders/list_orders.html", context)
 
-
+@login_required
 def list_order_history(request):
 
     context = {}
@@ -107,7 +113,7 @@ def list_order_history(request):
 
     return render(request,"listOrders/list_order_history.html", context)
 
-
+@login_required
 def list_products_order(request,order_id):
     context = {}
     products = []
@@ -120,15 +126,9 @@ def list_products_order(request,order_id):
     return render(request,"listProductsOrder/list_products_order.html", context)
 
 
+@login_required
 def cancel_order(request, order_id):
     order = Order.objects.get(id = order_id)
     order.state = Order.STATE[2][0]
     order.save()
     return HttpResponseRedirect(reverse('cart:list_orders'))
-
-
-#def client_information(requ):
- #   context = {}
-  #  context['all_orders'] = Order.objects.all()
-
-   # return render(request,"listOrders/list_orders.html", context)

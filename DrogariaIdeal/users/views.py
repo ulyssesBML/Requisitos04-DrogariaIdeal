@@ -64,7 +64,8 @@ def register_client(request):
         user.save()
         messages.success(request, 'Usuario registrado com sucesso')
 
-    return render(request, 'index')
+    
+    return HttpResponseRedirect(reverse('users:login'))
 
 @login_required
 def self_edit_client(request):

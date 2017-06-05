@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.contrib.admin.views.decorators import staff_member_required
 
 from .forms import Create_Product_Form, Create_Category_Form
 from .models import Product, Category
@@ -20,6 +20,7 @@ def search(request):
     }
     return render(request, 'listProducts/list_products_search.html', context)
 
+@staff_member_required
 def create_product(request):
     if request.method == "POST":
         form = Create_Product_Form(request.POST, request.FILES)
@@ -32,6 +33,7 @@ def create_product(request):
         form = Create_Product_Form()
         return render(request, 'createProduct/create_product.html', {'form': form})
 
+@staff_member_required
 def edit_product(request,product_id):
     product = get_object_or_404(Product, pk=product_id)
     if request.method == "POST":
@@ -47,16 +49,19 @@ def edit_product(request,product_id):
 
 
 
+@staff_member_required
 def list_products(request):
     context = {
         'all_products': Product.objects.all(),
     }
     return render(request, 'listProducts/list_products.html', context)
 
+@staff_member_required
 def delete_products(request, product_id):
         Product.objects.get(id=product_id).delete()
         return HttpResponseRedirect(reverse('products:list_products'))
 
+@staff_member_required
 def create_category(request):
 
     if request.method == "POST":
@@ -69,10 +74,10 @@ def create_category(request):
         form = Create_Category_Form()
         return render(request, 'createCategory/create_category.html', {'form': form, 'all_categories': Category.objects.all()})
 
+@staff_member_required
 def delete_categories(request, category_id):
         Category.objects.get(id=category_id).delete()
         return HttpResponseRedirect(reverse('products:create_category'))
-
 
 def sell_products(request):
     N_ELEMENTS = 15
