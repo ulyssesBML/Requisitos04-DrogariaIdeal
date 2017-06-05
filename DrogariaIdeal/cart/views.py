@@ -1,3 +1,4 @@
+# encoding: utf-8
 import sys
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
@@ -6,6 +7,7 @@ from . import cart
 from .forms import Create_Order_Form
 from .models import Order, ProductOrder
 from users.models import CustomUser
+import pusher
 
 def show_cart(request):
     context = {}
@@ -39,6 +41,20 @@ def show_cart(request):
             order_form.save()
 
             cart.clear(user_id)
+
+            #pusher config
+            pusher_client = pusher.Pusher(
+                app_id='348802',
+                key='a36f6ffa5a7dc96035a0',
+                secret='4980033d3fe10039b9ff',
+                ssl=True
+            )
+            
+            pusher_client.trigger('my-channel', 'my-event', {'message': 'Voce tem um novo pedido, confira a pagina de pedidos para mais informações'})
+
+
+
+
 
             url = reverse('cart:list_products_order', kwargs={"order_id":order_form.instance.id})
 

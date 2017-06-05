@@ -26,7 +26,27 @@
     <!--[if lt IE 9]>
      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+     <![endif]-->
+
+
+{% if user.is_superuser %}
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+    <script>
+
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+
+      var pusher = new Pusher('a36f6ffa5a7dc96035a0', {
+      encrypted: true
+      });
+
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+      alert(data.message);
+      });
+    </script>
+{% endif %}
+    
     {% block head %}
     {% endblock %}
 
@@ -129,7 +149,11 @@
         <script src="{% static 'js/jquery.js' %}"></script>
 
      <!-- Bootstrap Core JavaScript -->
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+     
+
 
     </body>
 

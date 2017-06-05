@@ -12,12 +12,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from unipath import Path
-import sys
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -32,6 +29,7 @@ ALLOWED_HOSTS = []
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +43,8 @@ INSTALLED_APPS = [
     'bootstrap3',
     'crispy_forms',
     'cart',
+
+    'pusher',
 
     'products',
 ]

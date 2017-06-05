@@ -9,4 +9,12 @@ sudo apt-get install -y libjpeg-dev
 sudo apt-get install -y libjpeg8-dev
 sudo apt-get install -y libpng-dev
 
+
+
 sudo pip install -r DrogariaIdeal/requirements.txt
+
+sudo pip install --upgrade urllib3
+sudo apt-get -y install build-essential libssl-dev libffi-dev python-dev
+sudo pip installcryptography
+sudo pip install --upgrade pyOpenSSL
+

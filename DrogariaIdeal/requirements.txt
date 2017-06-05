@@ -3,3 +3,4 @@ django-bootstrap3
 unipath
 Pillow
 django-crispy-forms
+pusher
