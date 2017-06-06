@@ -6,6 +6,7 @@
  {% csrf_token %}
 <div class = "container" style="padding:10px;display:table;">
 <a class="btn btn-primary" href="{% url 'products:create_product' %}">Carrinho</a>
+<h2>Dados do Produto</h2>
 <table class="table table-hover" style="margin:5px;">
 
   <tr>
@@ -23,16 +24,33 @@
   </tr>
   {% endfor %}
 </table>
-  <h2>Preço Total: {{total_price}} R$</h2>
   <br>
   <h2>Dados de Pagamento</h2>
-   <p>forma de pagamento: {{ order.payment}}</p>
-   <p>bandeira do cartão: {{ order.flag}}</p>
-   <p>Troco: {{ order.change}}</p>
-  
+<table class="table table-condensed">
+    <tr>
+      <th>Forma de pagamento:</th>
+      <th>Bandeira do cartão:</th>
+      <th>Troco:</th>
+    </tr>
+    <tr>
+   <td><p>{{ order.payment}}</p></td>
+   <td><p>{{ order.flag}}</p></td>
+   <td><p>{{ order.change}}</p></td>
+    </tr>
+  </table>
   <br>
   <h2>Dados do cliente</h2>
- <p>nome: {{client.first_name}}</p> 
- <p>email: {{client.username}}</p>
- <p>endereço: {{client.endereco}}</p>
+<table class="table table-condensed">
+    <tr>
+      <th>Forma de pagamento:</th>
+      <th>Bandeira do cartão:</th>
+      <th>Troco:</th>
+    </tr>
+    <tr>
+   <td><p>{{client.first_name}}</p></td>
+   <td><p>{{client.username}}</p></td>
+   <td><p>{{client.endereco}}</p></td>
+    </tr>
+  </table>
+  <h2>Preço Total: {{total_price}} R$</h2>
   {% endblock %}

@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.db import IntegrityError
 from django.contrib.auth.decorators import user_passes_test
-
+from .models import CustomUser
 from django.http import HttpResponse
 
 from django.contrib.auth import update_session_auth_hash
@@ -48,7 +48,7 @@ def register_client(request):
                 {'falha': resultCheck})
 
         try:
-            user = User.objects.create_user(first_name=first_name,
+            user = CustomUser.objects.create_user(first_name=first_name,
                                             last_name=last_name,
                                             password=password,
                                             username=email,
@@ -183,11 +183,12 @@ def register(request):
                 {'falha': resultCheck})
 
         try:
-            user = User.objects.create_superuser(first_name=first_name,
-                                                     last_name=last_name,
-                                                     password=password,
-                                                     username=first_name,
-                                                     email=email)
+            user = CustomUser.objects.create_user(first_name=first_name,
+                                            last_name=last_name,
+                                            password=password,
+                                            username=email,
+                                            endereco='Funcionario')
+            user.is_staff = True
 
         except IntegrityError as e:
             return render(request, 'userRegister/register.html',

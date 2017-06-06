@@ -26,7 +26,7 @@ def show_cart(request):
         if order_form.is_valid:
             print("-------------------------------------------------------------")
             print(order_form.instance.payment)
-            order_form.instance.user = CustomUser.objects.get(id=request.user.id).id
+            order_form.instance.user = request.user.id
             order_form.instance.total_price = 0
             order_form.save()
             for i,product in enumerate(cart_products):
@@ -38,9 +38,6 @@ def show_cart(request):
                order_form.instance.orders.add(product_O.id)
 
             order_form.instance.total_price = total_price(cart_products, amount)
-            
-            
-            
             order_form.save()
 
             cart.clear(user_id)
@@ -79,7 +76,6 @@ def remove_from_cart(request, product_id):
     return HttpResponseRedirect(reverse('cart:show_cart'))
 
 
-@login_required
 def total_price(cart_products, amount):
     price = 0
     print(len(cart_products))
