@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^list_order_history/', views.list_order_history, name='list_order_history'),
     url(r'^list_products_order/(?P<order_id>[0-9]+)/', views.list_products_order, name='list_products_order'),
     url(r'^cancel_order/(?P<order_id>[0-9]+)/', views.cancel_order, name='cancel_order'),
+    url(r'^send_order/(?P<order_id>[0-9]+)/', views.send_order, name='send_order'),
 
 ]
 static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

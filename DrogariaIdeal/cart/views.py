@@ -128,3 +128,12 @@ def cancel_order(request, order_id):
     order.state = Order.STATE[2][0]
     order.save()
     return HttpResponseRedirect(reverse('cart:list_orders'))
+
+
+def send_order(request,order_id):
+    order = Order.objects.get(id = order_id)
+    order.state = 'delivered'
+    order.save()
+    return HttpResponseRedirect(reverse('cart:list_orders'))
+
+   

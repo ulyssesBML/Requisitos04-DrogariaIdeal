@@ -23,7 +23,7 @@
         <td><a class="glyphicon glyphicon-tags" href = "{% url 'cart:list_products_order' order.id %}"></a></td>
 
         {% if user.is_superuser %}
-        <td><a class="glyphicon glyphicon-send"></a></td>
+        <td><a href = "{% url 'cart:send_order' order.id %}" class="glyphicon glyphicon-send"></a></td>
         {% endif %}
         <td><a class="glyphicon glyphicon-remove" onclick="return confirm('Voce tem certeza que deseja cancelar este pedido?')" href = "{% url 'cart:cancel_order' order.id %}" ></a></td>
     </tr>
